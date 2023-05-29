@@ -10,5 +10,7 @@ sudo apt update
 
 sudo apt install -y ansible
 
+sudo apt install sshpass -y
+
 ansible --version
 
