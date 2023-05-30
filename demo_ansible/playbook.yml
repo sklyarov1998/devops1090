@@ -1,7 +1,0 @@
----
-- name: Assign role to group
-  hosts: master
-  become: true
-  roles:
-    - master_server
-
