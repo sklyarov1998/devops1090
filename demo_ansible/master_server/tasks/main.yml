@@ -1,0 +1,42 @@
+---
+# tasks file for master_server
+---
+-name: Copy ssh keys for git authentiction
+	copy:
+		src:"{{ item }}"
+		dest: /etc/ssh
+	loop:
+		- '~/.ssh/git_id'
+		- '~/.ssh/git_id.pub'
+
+- name: Authorize git_id.pub SSH key
+  authorized_key:
+    user: "{{ ssh_user }}"
+    key: "{{ lookup('file', '~/.ssh/git_id.pub') }}"
+    state: present
+
+
+- name: Set up local Git repository
+  git
+    repo: ''
+	dest: ~
+	init: yes
+	version: ansible
+
+- name: Set remote origin
+  git:
+    repo: ~
+    remote: origin
+    url: "{{ git@github.com:sklyarov1998/devops1090.git }}"
+  become: true
+ 
+- name: Clone remote repository
+  git:
+    repo: "{{ git@github.com:sklyarov1998/devops1090.git }}"
+    dest: ~
+	version: ansible
+
+ name: Run ansible_install.bash script
+  script: ~/devops1090/ansible_install.bash
+
+
