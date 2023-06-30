@@ -1,0 +1,7 @@
+CREATE TABLE FilmsList (
+  FL_film-id INT PRIMARY KEY,
+  FL_film-name VARCHAR(255),
+  INDEX FILM_ID_INDEX (FL_film-id)
+);
+
+
